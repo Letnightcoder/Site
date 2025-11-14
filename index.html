@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Coming Soon</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #000;
+            color: #fff;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1000px;
+        }
+
+        /* Container */
+        .container {
+            text-align: center;
+            width: 100%;
+            max-width: 1200px;
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Crescent Moon Container */
+        .moon-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto 40px;
+            height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Crescent Moon */
+        .crescent {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: linear-gradient(180deg, #1a1a1a 0%, #000 100%);
+            box-shadow: 
+                0 0 60px rgba(255, 255, 255, 0.1),
+                inset 0 -20px 40px rgba(0, 0, 0, 0.8);
+            overflow: hidden;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .crescent::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120%;
+            height: 120%;
+            border-radius: 50%;
+            background: #000;
+            box-shadow: 0 0 80px #000;
+            z-index: 1;
+        }
+
+        .crescent::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.08) 0%, transparent 50%);
+            z-index: 2;
+            opacity: 0;
+            animation: glowPulse 4s ease-in-out infinite alternate;
+        }
+
+        /* Text Styling */
+        .coming-soon {
+            font-size: clamp(2rem, 8vw, 5rem);
+            letter-spacing: clamp(0.5rem, 2vw, 1.5rem);
+            font-weight: 300;
+            margin: 0;
+            opacity: 0;
+            animation: fadeInUp 1.5s ease-out 0.5s forwards;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+
+        .subtitle {
+            font-size: clamp(1rem, 3vw, 1rem);
+            color: rgb(255, 42, 42);
+            letter-spacing: 0.15em;
+            opacity: 0;
+            animation: fadeInUp 1.5s ease-out 0.5s forwards;
+            margin-top: 10px;
+        }
+
+        /* Background Stars */
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .star {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            opacity: 0;
+            animation: twinkle 3s infinite alternate;
+        }
+
+        .star:nth-child(1) { width: 2px; height: 2px; top: 15%; left: 20%; animation-delay: 0.5s; }
+        .star:nth-child(2) { width: 1px; height: 1px; top: 25%; left: 70%; animation-delay: 1.2s; }
+        .star:nth-child(3) { width: 3px; height: 3px; top: 40%; left: 10%; animation-delay: 2s; }
+        .star:nth-child(4) { width: 1px; height: 1px; top: 60%; left: 85%; animation-delay: 0.8s; }
+        .star:nth-child(5) { width: 2px; height: 2px; top: 80%; left: 30%; animation-delay: 1.5s; }
+        .star:nth-child(6) { width: 1px; height: 1px; top: 10%; left: 50%; animation-delay: 2.5s; }
+        .star:nth-child(7) { width: 2px; height: 2px; top: 50%; left: 60%; animation-delay: 1s; }
+        .star:nth-child(8) { width: 1px; height: 1px; top: 70%; left: 15%; animation-delay: 1.8s; }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotateX(0); }
+            50% { transform: translateY(-20px) rotateX(5deg); }
+        }
+
+        @keyframes glowPulse {
+            0% { opacity: 0; transform: scale(0.95); }
+            100% { opacity: 1; transform: scale(1.05); }
+        }
+
+        @keyframes textShine {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0; transform: scale(0.5); }
+            100% { opacity: 0.8; transform: scale(1); }
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .moon-container {
+                height: 250px;
+            }
+            .crescent {
+                height: 400px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .moon-container {
+                height: 200px;
+            }
+            .crescent {
+                height: 350px;
+            }
+            .coming-soon {
+                letter-spacing: 0.1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars">
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+    </div>
+
+    <div class="container">
+        <div class="moon-container">
+            <div class="crescent">
+            </div>
+        </div>
+        <h1 class="coming-soon">COMING SOON</h1>
+        <p class="subtitle">STAY TUNED</p>
+    </div>
+
+    <script>
+        // Optional: Add subtle mouse parallax effect
+        document.addEventListener('mousemove', (e) => {
+            const moon = document.querySelector('.crescent');
+            const xAxis = (window.innerWidth / 2 - e.pageX) / 50;
+            const yAxis = (window.innerHeight / 2 - e.pageY) / 50;
+            moon.style.transform = `translateY(${yAxis}px) translateX(${xAxis}px) rotateX(${-yAxis / 2}deg)`;
+        });
+
+        // Reset transform on mouse leave
+        document.addEventListener('mouseleave', () => {
+            const moon = document.querySelector('.crescent');
+            moon.style.transform = '';
+        });
+
+        // Generate more random stars on larger screens
+        window.addEventListener('load', () => {
+            if (window.innerWidth > 768) {
+                const starsContainer = document.querySelector('.stars');
+                for (let i = 0; i < 15; i++) {
+                    const star = document.createElement('div');
+                    star.classList.add('star');
+                    star.style.width = `${Math.random() * 2 + 1}px`;
+                    star.style.height = star.style.width;
+                    star.style.top = `${Math.random() * 100}%`;
+                    star.style.left = `${Math.random() * 100}%`;
+                    star.style.animationDelay = `${Math.random() * 3}s`;
+                    starsContainer.appendChild(star);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
